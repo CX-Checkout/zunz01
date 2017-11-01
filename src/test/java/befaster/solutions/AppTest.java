@@ -15,75 +15,168 @@ public class AppTest {
 	String E = "E";
 	String F = "F";
 	String G = "G";
+	String H = "H";
+	String I = "I";
+	String J = "J";
+	String K = "K";
+	String L = "L";
+	String M = "M";
+	String N = "N";
+	String O = "O";
+	String P = "P";
+	String Q = "Q";
+	String R = "R";
+	String S = "S";
+	String T = "T";
+	String U = "U";
+	String V = "V";
+	String W = "W";
+	String X = "X";
+	String Y = "Y";
+	String Z = "Z";
 	
 	@Test
 	public void test_regex() {
-		assertThat(App.regex, equalTo("(A|B|C|D|E|F)+"));
+		assertThat(App.regex, equalTo("(A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z)+"));
 	}
 	
 	@Test
-	public void checkout_A() {
+	public void checkout_santisedInputs() {
 		assertThat(App.checkout(A), equalTo(50));
-	}
-	
-	@Test
-	public void checkout_a() {
 		assertThat(App.checkout(A.toLowerCase()), equalTo(-1));
-	}
-	
-	@Test
-	public void checkout_B() {
 		assertThat(App.checkout(B), equalTo(30));
-	}
-	
-	@Test
-	public void checkout_b() {
 		assertThat(App.checkout(B.toLowerCase()), equalTo(-1));
-	}
-	
-	@Test
-	public void checkout_C() {
 		assertThat(App.checkout(C), equalTo(20));
-	}
-	
-	@Test
-	public void checkout_c() {
 		assertThat(App.checkout(C.toLowerCase()), equalTo(-1));
-	}
-	
-	@Test
-	public void checkout_D() {
 		assertThat(App.checkout(D), equalTo(15));
-	}
-	
-	@Test
-	public void checkout_d() {
 		assertThat(App.checkout(D.toLowerCase()), equalTo(-1));
-	}
-	
-	@Test
-	public void checkout_E() {
 		assertThat(App.checkout(E), equalTo(40));
-	}
-	
-	@Test
-	public void checkout_e() {
 		assertThat(App.checkout(E.toLowerCase()), equalTo(-1));
 	}
 	
 	@Test
-	public void checkout_F() {
-		assertThat(App.checkout(F), equalTo(10));
+	public void checkout_santisedInput_g() {
+		assertThat(App.checkout(G), equalTo(20));
+		assertThat(App.checkout(G.toLowerCase()), equalTo(-1));
 	}
 	
 	@Test
-	public void checkout_f() {
-		assertThat(App.checkout(F.toLowerCase()), equalTo(-1));
+	public void checkout_santisedInput_h() {
+		assertThat(App.checkout(H), equalTo(10));
+		assertThat(App.checkout(H.toLowerCase()), equalTo(-1));
 	}
 	
 	@Test
-	public void checkout_unknwown_sku_g() {
-		assertThat(App.checkout(G), equalTo(-1));
+	public void checkout_santisedInput_i() {
+		assertThat(App.checkout(I), equalTo(35));
+		assertThat(App.checkout(I.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_j() {
+		assertThat(App.checkout(J), equalTo(60));
+		assertThat(App.checkout(J.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_k() {
+		assertThat(App.checkout(K), equalTo(80));
+		assertThat(App.checkout(K.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_l() {
+		assertThat(App.checkout(L), equalTo(90));
+		assertThat(App.checkout(L.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_m() {
+		assertThat(App.checkout(M), equalTo(15));
+		assertThat(App.checkout(M.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_n() {
+		assertThat(App.checkout(N), equalTo(40));
+		assertThat(App.checkout(N.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_o() {
+		assertThat(App.checkout(O), equalTo(10));
+		assertThat(App.checkout(O.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_p() {
+		assertThat(App.checkout(P), equalTo(50));
+		assertThat(App.checkout(P.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_q() {
+		assertThat(App.checkout(Q), equalTo(30));
+		assertThat(App.checkout(Q.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_r() {
+		assertThat(App.checkout(R), equalTo(50));
+		assertThat(App.checkout(R.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_s() {
+		assertThat(App.checkout(S), equalTo(30));
+		assertThat(App.checkout(S.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_t() {
+		assertThat(App.checkout(T), equalTo(20));
+		assertThat(App.checkout(T.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_u() {
+		assertThat(App.checkout(U), equalTo(40));
+		assertThat(App.checkout(U.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_v() {
+		assertThat(App.checkout(V), equalTo(50));
+		assertThat(App.checkout(V.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_w() {
+		assertThat(App.checkout(W), equalTo(20));
+		assertThat(App.checkout(W.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_x() {
+		assertThat(App.checkout(X), equalTo(90));
+		assertThat(App.checkout(X.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_y() {
+		assertThat(App.checkout(Y), equalTo(10));
+		assertThat(App.checkout(Y.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_santisedInput_z() {
+		assertThat(App.checkout(Z), equalTo(50));
+		assertThat(App.checkout(Z.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_unknwown_sku() {
+		assertThat(App.checkout("*"), equalTo(-1));
 	}
 	
 	@Test

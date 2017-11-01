@@ -12,7 +12,7 @@ public class App {
 	public enum SKUS {
 		A {
 			@Override
-			int getOfferValue(int count) {
+			int calcValueForThisSku(int count) {
 				//buy three for 130, buy five for 150
 				int total = 0;
 				//apply the buy five rule first
@@ -31,13 +31,13 @@ public class App {
 			}
 
 			@Override
-			int getOfferValue(Map<SKUS, Integer> counts) {
-				return getOfferValue(getCount(counts));
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(getCount(counts));
 			}
 		}, B {
 			@Override
-			int getOfferValue(Map<SKUS, Integer> counts) {
-				return getOfferValue(getCount(counts));
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(getCount(counts));
 			}
 
 			@Override
@@ -46,7 +46,7 @@ public class App {
 			}
 
 			@Override
-			int getOfferValue(int count) {
+			int calcValueForThisSku(int count) {
 				//Buy two for 45
 				int total = 0;
 				total += (count / 2) * 45;
@@ -56,7 +56,7 @@ public class App {
 			}
 		}, C {
 			@Override
-			int getOfferValue(int count) {
+			int calcValueForThisSku(int count) {
 				return count * this.normalValue();
 			}
 
@@ -66,12 +66,12 @@ public class App {
 			}
 			
 			@Override
-			int getOfferValue(Map<SKUS, Integer> counts) {
-				return getOfferValue(getCount(counts));
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(getCount(counts));
 			}
 		}, D {
 			@Override
-			int getOfferValue(int count) {
+			int calcValueForThisSku(int count) {
 				return count * this.normalValue();
 			}
 
@@ -81,12 +81,12 @@ public class App {
 			}
 			
 			@Override
-			int getOfferValue(Map<SKUS, Integer> counts) {
-				return getOfferValue(getCount(counts));
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(getCount(counts));
 			}
 		}, E {
 			@Override
-			int getOfferValue(int count) {
+			int calcValueForThisSku(int count) {
 				//Buy two at 40 get a B free
 				int total = 0;
 				total += count * this.normalValue();
@@ -94,16 +94,16 @@ public class App {
 			}
 			
 			@Override
-			int getOfferValue(Map<SKUS, Integer> counts) {
-				int total = getOfferValue(getCount(counts));
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				int total = calcValueForThisSku(getCount(counts));
 				int count = getCount(counts);
 				//Remove all B values and re-add only the number we need to after removing the ones we get free
-				total -= B.getOfferValue(counts);
+				total -= B.calcTotalValueWithCrossSkuOffers(counts);
 				
 				//Deduct the price of a B item for every 2 E items we have
 				int bCount = B.getCount(counts);
 				if(bCount > count / 2) {
-					total += B.getOfferValue(bCount - (count / 2));
+					total += B.calcValueForThisSku(bCount - (count / 2));
 				}
 					
 				return total;
@@ -115,12 +115,12 @@ public class App {
 			}
 		}, F {
 			@Override
-			int getOfferValue(Map<SKUS, Integer> counts) {
-				return getOfferValue(this.getCount(counts));
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
 			}
 
 			@Override
-			int getOfferValue(int count) {
+			int calcValueForThisSku(int count) {
 				//if we have three F's one is free
 				int total = 0;
 				total += (count / 3) * (2 * normalValue());
@@ -132,11 +132,311 @@ public class App {
 			int normalValue() {
 				return 10;
 			}
+		}, G {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 20;
+			}
+		}, H {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 10;
+			}
+		}, I {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 35;
+			}
+		}, J {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 60;
+			}
+		}, K {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 80;
+			}
+		}, L {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 90;
+			}
+		}, M {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 15;
+			}
+		}, N {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 40;
+			}
+		}, O {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 10;
+			}
+		}, P {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 50;
+			}
+		}, Q {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 30;
+			}
+		}, R {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 50;
+			}
+		}, S {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 30;
+			}
+		}, T {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 20;
+			}
+		}, U {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 40;
+			}
+		}, V {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 50;
+			}
+		}, W {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 20;
+			}
+		}, X {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 90;
+			}
+		}, Y {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 10;
+			}
+		}, Z {
+			@Override
+			int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts) {
+				return calcValueForThisSku(this.getCount(counts));
+			}
+
+			@Override
+			int calcValueForThisSku(int count) {
+				return count * normalValue();
+			}
+
+			@Override
+			int normalValue() {
+				return 50;
+			}
 		};
 		
-		abstract int getOfferValue(Map<SKUS, Integer> counts);
+		abstract int calcTotalValueWithCrossSkuOffers(Map<SKUS, Integer> counts);
 		
-		abstract int getOfferValue(int count);
+		abstract int calcValueForThisSku(int count);
 		
 		abstract int normalValue();
 		
@@ -192,7 +492,7 @@ public class App {
 		//Performs basic calcs without offers
 		int basketCount = 0;
 		for(SKUS sku: SKUS.values()) {
-			basketCount += sku.getOfferValue(skuCounts);
+			basketCount += sku.calcTotalValueWithCrossSkuOffers(skuCounts);
 		}
 		return basketCount;
 	}
