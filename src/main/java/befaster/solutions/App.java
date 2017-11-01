@@ -113,6 +113,25 @@ public class App {
 			int normalValue() {
 				return 40;
 			}
+		}, F {
+			@Override
+			int getOfferValue(Map<SKUS, Integer> counts) {
+				return getOfferValue(this.getCount(counts));
+			}
+
+			@Override
+			int getOfferValue(int count) {
+				//if we have three F's one is free
+				int total = 0;
+				total += (count / 3) * (2 * normalValue());
+				total += (count % 3) * normalValue();
+				return total;
+			}
+
+			@Override
+			int normalValue() {
+				return 10;
+			}
 		};
 		
 		abstract int getOfferValue(Map<SKUS, Integer> counts);

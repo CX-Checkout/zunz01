@@ -14,10 +14,11 @@ public class AppTest {
 	String D = "D";
 	String E = "E";
 	String F = "F";
+	String G = "G";
 	
 	@Test
 	public void test_regex() {
-		assertThat(App.regex, equalTo("(A|B|C|D|E)+"));
+		assertThat(App.regex, equalTo("(A|B|C|D|E|F)+"));
 	}
 	
 	@Test
@@ -71,8 +72,18 @@ public class AppTest {
 	}
 	
 	@Test
-	public void checkout_unknwown_sku_f() {
-		assertThat(App.checkout(F), equalTo(-1));
+	public void checkout_F() {
+		assertThat(App.checkout(F), equalTo(10));
+	}
+	
+	@Test
+	public void checkout_f() {
+		assertThat(App.checkout(F.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_unknwown_sku_g() {
+		assertThat(App.checkout(G), equalTo(-1));
 	}
 	
 	@Test
@@ -148,6 +159,21 @@ public class AppTest {
 	}
 	
 	@Test
+	public void checkout_multi_buy_F_2() {
+		assertThat(App.checkout(F+F), equalTo(20));
+	}
+	
+	@Test
+	public void checkout_multi_buy_F_3() {
+		assertThat(App.checkout(F+F+F), equalTo(20));
+	}
+	
+	@Test
+	public void checkout_multi_buy_F_4() {
+		assertThat(App.checkout(F+F+F+F), equalTo(30));
+	}
+	
+	@Test
 	public void checkout_multiple_mixed_skus() {
 		assertThat(App.checkout(A+B+C+D+E), equalTo(155));
 	}
@@ -160,15 +186,14 @@ public class AppTest {
 	
 	@Test
 	public void checkout_multiple_multi_buy_skus() {
-//		50 + 30 + 40 + 50 + 30 + 40 + 50 + 40
+//		50 + 30 + 40 + 10 + 50 + 30 + 40 + 10 + 50 + 40 + 10
 //		3A = 130
 //		2B = 45
 //		3E = 120
-//		Provisional total = 295
-//		Subtract one B due to having 2E - 30 = 265,
-//		then we don't get to apply for the B bonus so we need to add another 15 =
-//		subtract all B then add only our B?
-		assertThat(App.checkout(A+B+E+A+B+E+A+E), equalTo(280));
+//		3F = 20
+//		Provisional total = 315
+//		We get one B free so remove that and recalculate B values at 30 instead of 45 = 290
+		assertThat(App.checkout(A+B+E+F+A+B+E+F+A+E+F), equalTo(300));
 	}
 	
 	@Test
