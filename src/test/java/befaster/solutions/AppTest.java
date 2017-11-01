@@ -13,10 +13,11 @@ public class AppTest {
 	String C = "C";
 	String D = "D";
 	String E = "E";
+	String F = "F";
 	
 	@Test
 	public void test_regex() {
-		assertThat(App.regex, equalTo("(A|B|C|D)+"));
+		assertThat(App.regex, equalTo("(A|B|C|D|E)+"));
 	}
 	
 	@Test
@@ -60,8 +61,18 @@ public class AppTest {
 	}
 	
 	@Test
-	public void checkout_unknwown_sku_e() {
-		assertThat(App.checkout(E), equalTo(-1));
+	public void checkout_E() {
+		assertThat(App.checkout(E), equalTo(40));
+	}
+	
+	@Test
+	public void checkout_e() {
+		assertThat(App.checkout(E.toLowerCase()), equalTo(-1));
+	}
+	
+	@Test
+	public void checkout_unknwown_sku_f() {
+		assertThat(App.checkout(F), equalTo(-1));
 	}
 	
 	@Test
@@ -79,9 +90,33 @@ public class AppTest {
 	}
 	
 	@Test
-	public void checkout_multi_buy_a() {
+	public void checkout_multi_buy_A_3() {
 		assertThat(App.checkout(A+A+A), equalTo(130));
-		assertThat(App.checkout(A+A+A+A), equalTo(180));
+		assertThat(App.checkout(A+A+A + A), equalTo(180));
+	}
+	
+	@Test
+	public void checkout_multi_buy_A_5() {
+		assertThat(App.checkout(A+A+A+A+A), equalTo(200));
+		assertThat(App.checkout(A+A+A+A+A + A), equalTo(250));
+	}
+	
+	@Test
+	public void checkout_multi_buy_A_6() {
+		assertThat(App.checkout(A+A+A+A+A+A), equalTo(250));
+		assertThat(App.checkout(A+A+A+A+A+A + A), equalTo(300));
+	}
+	
+	@Test
+	public void checkout_multi_buy_A_8() {
+		assertThat(App.checkout(A+A+A+A+A + A+A+A), equalTo(330));
+		assertThat(App.checkout(A+A+A+A+A + A+A+A + A), equalTo(380));
+	}
+	
+	@Test
+	public void checkout_multi_buy_A_15() {
+		assertThat(App.checkout(A+A+A+A+A + A+A+A+A+A + A+A+A+A+A), equalTo(600));
+		assertThat(App.checkout(A+A+A+A+A + A+A+A+A+A + A+A+A+A+A + A), equalTo(650));
 	}
 	
 	@Test
@@ -92,18 +127,48 @@ public class AppTest {
 	}
 	
 	@Test
+	public void checkout_multi_buy_E_2() {
+		assertThat(App.checkout(E+E), equalTo(80));
+	}
+	
+	
+	@Test
+	public void checkout_multi_buy_E_2_B() {
+		assertThat(App.checkout(E+E+B), equalTo(80));
+	}
+	
+	@Test
+	public void checkout_multi_buy_E_4_B_2() {
+		assertThat(App.checkout(E+E+B+E+E+B), equalTo(160));
+	}
+	
+	@Test
+	public void checkout_multi_buy_E_5_B_3() {
+		assertThat(App.checkout(E+E+B+E+E+B+B+E), equalTo(230));
+	}
+	
+	@Test
 	public void checkout_multiple_mixed_skus() {
-		assertThat(App.checkout(A+B+C+D), equalTo(115));
+		assertThat(App.checkout(A+B+C+D+E), equalTo(155));
 	}
 	
 	@Test
 	public void checkout_multiple_mixed_skus_with_lowercase() {
-		assertThat(App.checkout(A+B+C+D+A.toLowerCase()+B.toLowerCase()+C.toLowerCase()+D.toLowerCase()), equalTo(-1));
+		assertThat(App.checkout(A+B+C+D+E+
+				A.toLowerCase()+B.toLowerCase()+C.toLowerCase()+D.toLowerCase()+E.toLowerCase()), equalTo(-1));
 	}
 	
 	@Test
 	public void checkout_multiple_multi_buy_skus() {
-		assertThat(App.checkout(A+B+A+B+A), equalTo(175));
+//		50 + 30 + 40 + 50 + 30 + 40 + 50 + 40
+//		3A = 130
+//		2B = 45
+//		3E = 120
+//		Provisional total = 295
+//		Subtract one B due to having 2E - 30 = 265,
+//		then we don't get to apply for the B bonus so we need to add another 15 =
+//		subtract all B then add only our B?
+		assertThat(App.checkout(A+B+E+A+B+E+A+E), equalTo(280));
 	}
 	
 	@Test
